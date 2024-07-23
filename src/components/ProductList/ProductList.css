@@ -1,0 +1,17 @@
+/* src/components/ProductList.css */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .product-item {
+    width: calc(25% - 20px);
+    margin: 10px;
+    background: #f0f0f0;
+    text-align: center;
+  }
+  
+  .product-item.highlight {
+    background: #e0e0e0;
+  }
+  
