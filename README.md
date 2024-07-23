@@ -1,4 +1,4 @@
-# Para usar el adminsitrador 
+# Para usar el administrador 
 Usuario: admin
 Pass: admin
 # Getting Started with Create React App
