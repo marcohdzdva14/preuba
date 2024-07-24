@@ -1,5 +1,3 @@
-// src/components/Login.js
-// src/components/Login.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // Import custom CSS

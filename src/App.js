@@ -9,6 +9,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   const [auth, setAuth] = useState(false);
+  //estado de los banners
   const [banners, setBanners] = useState({
     banner1: true,
     banner2: true,
@@ -19,10 +20,12 @@ const App = () => {
   const [productsCount, setProductsCount] = useState(20); // Valor de productis por default 
 
   useEffect(() => {
+    //autenticacion
     const isAuth = localStorage.getItem('isAuth');
     if (isAuth === 'true') {
       setAuth(true);
     }
+    //contador de productos
     const savedCount = localStorage.getItem('productsCount');
     if (savedCount) {
       setProductsCount(parseInt(savedCount, 10));
