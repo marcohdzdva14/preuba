@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AddBannerPublicidad from './AddBannerPublicidad';
 
-const Admin = ({ setAuth, banners, setBanners, productsCount, setProductsCount }) => {
+const Admin = ({ setAuth, banners, setBanners,bannersPublicidad, setBannersPublicidad, productsCount, setProductsCount }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -30,12 +30,31 @@ const Admin = ({ setAuth, banners, setBanners, productsCount, setProductsCount }
     }
   };
 
+
   useEffect(() => {
     const savedCount = localStorage.getItem('productsCount');
     if (savedCount) {
       setProductsCount(parseInt(savedCount, 10));
     }
-  }, [setProductsCount]);
+    const storedBannersPublicidad = JSON.parse(localStorage.getItem('bannersPublicidad'));
+    if (storedBannersPublicidad) {
+      setBannersPublicidad(storedBannersPublicidad);
+    }
+
+  }, [setProductsCount,setBannersPublicidad]);
+
+  const addBannerPublicidad = (newBanner) => {
+    const updatedBannersPublicidad = bannersPublicidad ? [...bannersPublicidad, newBanner] : [newBanner];
+    setBannersPublicidad(updatedBannersPublicidad);
+    localStorage.setItem('bannersPublicidad', JSON.stringify(updatedBannersPublicidad));
+  };
+
+  const removeBannerPublicidad = (index) => {
+    const updatedBannersPublicidad = bannersPublicidad.filter((_, i) => i !== index);
+    setBannersPublicidad(updatedBannersPublicidad);
+    localStorage.setItem('bannersPublicidad', JSON.stringify(updatedBannersPublicidad));
+  };
+
 
 
   return (
@@ -46,6 +65,7 @@ const Admin = ({ setAuth, banners, setBanners, productsCount, setProductsCount }
         <Link to="/" className="btn btn-primary me-2">Home</Link>
         <button onClick={handleLogout} className="btn btn-danger">Logout</button>
       </div>
+     
       <div className="mt-4">
         <h2>Banners</h2>
         <div className="d-flex flex-wrap justify-content-center">
@@ -72,6 +92,24 @@ const Admin = ({ setAuth, banners, setBanners, productsCount, setProductsCount }
             className="form-control w-50"
           />
         </div>
+        <div className='mt-4'>
+        <AddBannerPublicidad addBannerPublicidad={addBannerPublicidad} />
+        </div>
+        <div className="mt-4">
+        <h2>Banners Publicidad</h2>
+        {bannersPublicidad && bannersPublicidad.map((banner, index) => (
+          <div key={index} className="mb-2">
+            
+            <button
+              className="btn btn-danger ml-2"
+              onClick={() => removeBannerPublicidad(index)}
+            >
+              Eliminar Banner
+            </button>
+            <img src={banner.image} alt={`Banner Publicidad ${index + 1}`} style={{ width: '100%', height: 'auto', display: 'block', marginTop: '10px' }} />
+          </div>
+        ))}
+      </div>
       </div>
     </div>
   );

@@ -18,7 +18,10 @@ const App = () => {
     banner5: true,
   });
   const [productsCount, setProductsCount] = useState(20); // Valor de productis por default 
-
+  const [bannersPublicidad, setBannersPublicidad] = useState(() => {
+    const storedBannersPublicidad = JSON.parse(localStorage.getItem('bannersPublicidad'));
+    return storedBannersPublicidad ? storedBannersPublicidad : [];
+  });
   useEffect(() => {
     //autenticacion
     const isAuth = localStorage.getItem('isAuth');
@@ -48,11 +51,13 @@ const App = () => {
                   setBanners={setBanners} 
                   productsCount={productsCount}
                   setProductsCount={setProductsCount}
+                  bannersPublicidad={bannersPublicidad}
+                  setBannersPublicidad={setBannersPublicidad}
                 />
               </ProtectedRoute>
             }
           />
-           <Route path="/product-list" element={<ProductList count={productsCount} auth={auth} />} />
+           <Route path="/product-list" element={<ProductList count={productsCount} auth={auth} bannersPublicidad={bannersPublicidad} />} />
         </Routes>
       </div>
     </Router>
